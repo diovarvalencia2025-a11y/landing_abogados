@@ -1,144 +1,166 @@
 /**
- * Valenzuela & Asociados | Main JavaScript Engine
+ * Valenzuela & Asociados | Luxury Corporate Law Engine
+ * Advanced Interactions, Precision Fee Simulator & Case Viability System
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. Navbar Scroll Blur & Shadow
-  const navbar = document.querySelector('.navbar');
+
+  // 1. Dynamic Navbar & Scroll States
+  const navbar = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 40) {
-      navbar.style.background = 'rgba(7, 11, 25, 0.98)';
-      navbar.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.35)';
+    if (window.scrollY > 50) {
+      navbar.style.background = 'rgba(3, 6, 14, 0.98)';
+      navbar.style.boxShadow = '0 16px 40px rgba(0, 0, 0, 0.6)';
     } else {
-      navbar.style.background = 'rgba(13, 21, 45, 0.95)';
+      navbar.style.background = 'rgba(7, 13, 30, 0.92)';
       navbar.style.boxShadow = 'none';
     }
   });
 
-  // 2. Mobile Menu Toggle
+  // 2. Mobile Menu Controller
   const mobileToggle = document.getElementById('mobileToggle');
-  const navMenu = document.getElementById('navMenu');
+  const navLinks = document.getElementById('navLinks');
 
-  if (mobileToggle && navMenu) {
+  if (mobileToggle && navLinks) {
     mobileToggle.addEventListener('click', () => {
-      navMenu.classList.toggle('active');
-      const isOpen = navMenu.classList.contains('active');
+      navLinks.classList.toggle('active');
+      const isOpen = navLinks.classList.contains('active');
       mobileToggle.setAttribute('aria-expanded', isOpen);
-      mobileToggle.innerHTML = isOpen
-        ? '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>'
-        : '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>';
     });
 
-    // Close mobile menu when clicking a link
-    navMenu.querySelectorAll('.nav-link').forEach(link => {
+    navLinks.querySelectorAll('.nav-link').forEach(link => {
       link.addEventListener('click', () => {
-        navMenu.classList.remove('active');
+        navLinks.classList.remove('active');
         mobileToggle.setAttribute('aria-expanded', 'false');
-        mobileToggle.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>';
       });
     });
   }
 
-  // 3. Interactive Case Viability Calculator
-  const calcForm = document.getElementById('caseCalculatorForm');
-  const calcResultBox = document.getElementById('calcResultBox');
-  const calcScore = document.getElementById('calcScore');
-  const calcDesc = document.getElementById('calcDesc');
+  // 3. Practice Area Filter Matrix
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const practiceCards = document.querySelectorAll('.practice-card');
 
-  if (calcForm && calcResultBox) {
-    calcForm.addEventListener('submit', (e) => {
-      e.preventDefault();
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
 
-      const area = document.getElementById('calcArea').value;
-      const stage = document.getElementById('calcStage').value;
-      const urgency = document.getElementById('calcUrgency').value;
+      const filterCategory = btn.getAttribute('data-filter');
 
-      if (!area || !stage || !urgency) {
-        alert('Por favor, selecciona todas las opciones para evaluar la viabilidad.');
-        return;
-      }
-
-      // Calculation logic
-      let scoreText = 'Alta Viabilidad (92%)';
-      let description = 'Tu caso reúne los indicios jurídicos óptimos para iniciar una negociación previa o procedimiento judicial con alta probabilidad de éxito.';
-
-      if (stage === 'juicio' || urgency === 'inmediata') {
-        scoreText = 'Atención Prioritaria (Urgente)';
-        description = 'Tu caso se encuentra en una fase crítica con plazos procesales abiertos. Te recomendamos contactar de inmediato para personarnos.';
-      } else if (area === 'penal') {
-        scoreText = 'Estudio Especializado Penal';
-        description = 'Requiere análisis minucioso de atestados y diligencias previas por nuestro equipo de penalistas de guardia.';
-      }
-
-      calcScore.textContent = scoreText;
-      calcDesc.textContent = description;
-      calcResultBox.style.display = 'block';
-
-      // Smooth scroll to result
-      calcResultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    });
-  }
-
-  // 4. FAQ Accordion
-  const faqItems = document.querySelectorAll('.faq-item');
-  faqItems.forEach(item => {
-    const question = item.querySelector('.faq-question');
-    question.addEventListener('click', () => {
-      const isActive = item.classList.contains('active');
-
-      // Close other open accordions
-      faqItems.forEach(otherItem => {
-        if (otherItem !== item) {
-          otherItem.classList.remove('active');
+      practiceCards.forEach(card => {
+        const cardCategory = card.getAttribute('data-category');
+        if (filterCategory === 'all' || cardCategory === filterCategory) {
+          card.style.display = 'flex';
+          setTimeout(() => {
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+          }, 50);
+        } else {
+          card.style.opacity = '0';
+          card.style.transform = 'translateY(15px)';
+          setTimeout(() => {
+            card.style.display = 'none';
+          }, 300);
         }
       });
-
-      item.classList.toggle('active', !isActive);
     });
   });
 
-  // 5. Contact & Consultation Forms Handling
-  const forms = ['quickAssessmentForm', 'mainConsultationForm'];
-  const feedbackModal = document.getElementById('feedbackModal');
+  // 4. Precision Fee & Viability Calculator
+  const claimSlider = document.getElementById('claimSlider');
+  const claimDisplay = document.getElementById('claimDisplay');
+  const estimatedRecovery = document.getElementById('estimatedRecovery');
+  const feeEstimate = document.getElementById('feeEstimate');
+  const viabilityScore = document.getElementById('viabilityScore');
+  const calcJurisdiction = document.getElementById('calcJurisdiction');
+  const calcStage = document.getElementById('calcStage');
+
+  function updateCalculator() {
+    if (!claimSlider) return;
+
+    const amount = parseInt(claimSlider.value, 10);
+    claimDisplay.textContent = new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(amount);
+
+    // Dynamic recovery calculation
+    const recoveryMin = Math.round(amount * 0.88);
+    const recoveryMax = Math.round(amount * 1.15);
+    estimatedRecovery.textContent = `${new Intl.NumberFormat('es-ES').format(recoveryMin)} € - ${new Intl.NumberFormat('es-ES').format(recoveryMax)} €`;
+
+    // Fee structure (Cuota Litis estimate or Fixed Strategy)
+    const jurisdiction = calcJurisdiction ? calcJurisdiction.value : 'mercantil';
+    const stage = calcStage ? calcStage.value : 'extrajudicial';
+
+    if (jurisdiction === 'accidentes' || jurisdiction === 'laboral') {
+      feeEstimate.textContent = 'A Porcentaje de Éxito (Cuota Litis 12% - 15%)';
+      viabilityScore.textContent = '96% • Máxima Viabilidad';
+      viabilityScore.style.color = 'var(--success)';
+    } else if (stage === 'juicio') {
+      feeEstimate.textContent = 'Presupuesto Cerrado por Fases Procesales';
+      viabilityScore.textContent = '91% • Atención Prioritaria';
+      viabilityScore.style.color = 'var(--gold-400)';
+    } else {
+      feeEstimate.textContent = 'Tarifa Plana Extrajudicial + Acuerdo';
+      viabilityScore.textContent = '94% • Alta Probabilidad de Acuerdo';
+      viabilityScore.style.color = 'var(--gold-400)';
+    }
+  }
+
+  if (claimSlider) {
+    claimSlider.addEventListener('input', updateCalculator);
+  }
+  if (calcJurisdiction) calcJurisdiction.addEventListener('change', updateCalculator);
+  if (calcStage) calcStage.addEventListener('change', updateCalculator);
+  updateCalculator();
+
+  // 5. Interactive FAQ Accordion
+  const faqCards = document.querySelectorAll('.faq-card');
+  faqCards.forEach(card => {
+    const btn = card.querySelector('.faq-btn');
+    btn.addEventListener('click', () => {
+      const isAlreadyActive = card.classList.contains('active');
+
+      faqCards.forEach(otherCard => {
+        if (otherCard !== card) otherCard.classList.remove('active');
+      });
+
+      card.classList.toggle('active', !isAlreadyActive);
+    });
+  });
+
+  // 6. Form Submission & Encrypted Protocol Feedback
+  const quickForm = document.getElementById('quickAssessmentForm');
+  const mainConsultForm = document.getElementById('mainConsultationForm');
+  const modalBackdrop = document.getElementById('feedbackModal');
   const closeModalBtn = document.getElementById('closeModalBtn');
   const modalMessage = document.getElementById('modalMessage');
 
-  forms.forEach(formId => {
-    const form = document.getElementById(formId);
-    if (form) {
-      form.addEventListener('submit', (e) => {
-        e.preventDefault();
+  function handleFormSubmit(e, form) {
+    e.preventDefault();
+    const btn = form.querySelector('button[type="submit"]');
+    const originalText = btn.innerHTML;
 
-        const submitBtn = form.querySelector('button[type="submit"]');
-        const originalText = submitBtn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '<span>Verificando Secreto Profesional & Encriptando...</span>';
 
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = 'Enviando solicitud...';
+    setTimeout(() => {
+      btn.disabled = false;
+      btn.innerHTML = originalText;
+      form.reset();
 
-        setTimeout(() => {
-          submitBtn.disabled = false;
-          submitBtn.innerHTML = originalText;
-          form.reset();
-
-          if (feedbackModal) {
-            modalMessage.textContent = 'Hemos recibido tu consulta confidencial. Un abogado socio especialista se pondrá en contacto contigo en un plazo máximo de 2 horas hábiles.';
-            feedbackModal.classList.add('active');
-          }
-        }, 800);
-      });
-    }
-  });
-
-  // Close Modal
-  if (closeModalBtn && feedbackModal) {
-    closeModalBtn.addEventListener('click', () => {
-      feedbackModal.classList.remove('active');
-    });
-
-    feedbackModal.addEventListener('click', (e) => {
-      if (e.target === feedbackModal) {
-        feedbackModal.classList.remove('active');
+      if (modalBackdrop && modalMessage) {
+        modalMessage.innerHTML = 'Su solicitud ha sido transmitida bajo <strong>protocolo de estricta confidencialidad</strong>.<br><br>Un Letrado Socio Director analizará los antecedentes y se pondrá en contacto con usted en un plazo máximo de <strong>2 horas hábiles</strong>.';
+        modalBackdrop.classList.add('active');
       }
+    }, 900);
+  }
+
+  if (quickForm) quickForm.addEventListener('submit', (e) => handleFormSubmit(e, quickForm));
+  if (mainConsultForm) mainConsultForm.addEventListener('submit', (e) => handleFormSubmit(e, mainConsultForm));
+
+  if (closeModalBtn && modalBackdrop) {
+    closeModalBtn.addEventListener('click', () => modalBackdrop.classList.remove('active'));
+    modalBackdrop.addEventListener('click', (e) => {
+      if (e.target === modalBackdrop) modalBackdrop.classList.remove('active');
     });
   }
 });
